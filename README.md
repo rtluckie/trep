@@ -49,7 +49,9 @@ If you just want to read and apply the framework:
 
 If you want a local, reproducible setup:
 
-- Clone the repo and browse files directly
+- Fork the repo so you can pull upstream updates
+- Consider making your fork private if you want to keep ideas confidential
+- Clone your fork and browse files directly
 - Use the templates in [`ideas/_template/`](ideas/_template/)
 - Build offline formats: `make pdf`, `make epub`, `make html`
 
