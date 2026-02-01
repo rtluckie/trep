@@ -34,6 +34,27 @@ This system exists to keep me **focused, honest, and efficient**.
 
 ---
 
+## Getting Started (Choose Your Path)
+
+### For non-technical readers
+
+If you just want to read and apply the framework:
+
+- Read the core flow in [`PROCESS.md`](PROCESS.md)
+- Use the 15-minute filter in [`IDEA_INTAKE.md`](IDEA_INTAKE.md)
+- Follow the quickstart in [`NEW_IDEA.md`](NEW_IDEA.md)
+- See a filled example in [`ideas/example-idea/`](ideas/example-idea/)
+
+### For technical users
+
+If you want a local, reproducible setup:
+
+- Clone the repo and browse files directly
+- Use the templates in [`ideas/_template/`](ideas/_template/)
+- Build offline formats: `make pdf`, `make epub`, `make html`
+
+---
+
 ## Index
 
 - [`PROCESS.md`](PROCESS.md) - The full idea lifecycle, phases, and kill criteria
@@ -111,7 +132,7 @@ Rules:
 
 ---
 
-## 3. Getting Started (New Idea in 5 Minutes)
+## 3. New Idea Quickstart (Folder Setup)
 
 1. Create a folder: `ideas/idea-<short-name>/`
 2. Copy everything from `ideas/_template/` into it
