@@ -1,0 +1,39 @@
+name: Publish Docs
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: pandoc/latex:3.1
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build HTML
+        run: |
+          mkdir -p site
+          SOURCE_FILES="README.md PROCESS.md IDEA_INTAKE.md NEW_IDEA.md 01_ENERGY_BUDGET.md WEEKLY_REVIEW.md CHANGELOG.md CONTRIBUTING.md GOVERNANCE.md CODE_OF_CONDUCT.md"
+          pandoc $SOURCE_FILES -o site/index.html --metadata title="TREP"
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,42 @@
+name: Release Artifacts
+
+on:
+  push:
+    tags:
+      - "*.*.*"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: pandoc/latex:3.1
+
+    steps:
+      - name: Validate tag format
+        run: |
+          if [[ ! "${GITHUB_REF_NAME}" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Tag must match MAJOR.MINOR.PATCH (e.g., 0.1.0)."
+            exit 1
+          fi
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build PDF and EPUB
+        run: |
+          mkdir -p dist
+          SOURCE_FILES="README.md PROCESS.md IDEA_INTAKE.md NEW_IDEA.md 01_ENERGY_BUDGET.md WEEKLY_REVIEW.md CHANGELOG.md CONTRIBUTING.md GOVERNANCE.md CODE_OF_CONDUCT.md"
+          pandoc $SOURCE_FILES -o dist/trep.pdf --pdf-engine=xelatex
+          pandoc $SOURCE_FILES -o dist/trep.epub
+          pandoc $SOURCE_FILES -o dist/trep.html
+
+      - name: Publish release assets
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          files: |
+            dist/trep.pdf
+            dist/trep.epub
+            dist/trep.html
